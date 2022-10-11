@@ -33,13 +33,12 @@ func _on_IO_close_request():
 
 func execute():
 	for conn in Globals.connections:
-		if self.name in conn.values():
-			if conn["to"] == self.name:
-				io_value = conn["data"]
+#		if self.name in conn.values():
+		if conn["to"] == self.name:
+			io_value = conn["data"]
 			
 func _on_toggle_toggled(button_pressed):
 	if button_pressed == true:
 		io_value = 1
 	else:
 		io_value = 0
-		

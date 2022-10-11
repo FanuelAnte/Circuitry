@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/Themes/Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Fonts/GOTHIC.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Fonts/GOTHICB.TTF" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Images/Buttons/Startp.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Buttons/Start.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/conceptMenu.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/Buttons/OFF.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Images/Buttons/ON.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 56
+use_filter = true
+extra_spacing_char = 16
+font_data = ExtResource( 3 )
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 9 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ConceptMenu" type="Sprite" parent="."]
+visible = false
+position = Vector2( 960, 540 )
+texture = ExtResource( 6 )
+
+[node name="Name" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = -63.0
+margin_right = 268.0
+margin_bottom = -32.0
+custom_fonts/font = SubResource( 1 )
+text = "BY FANUEL ANTENEH"
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -203.5
+margin_top = 152.0
+margin_right = 203.5
+margin_bottom = 222.0
+custom_fonts/font = SubResource( 2 )
+text = "CIRCUITRY"
+
+[node name="StartBtn" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.0
+margin_top = -182.5
+margin_right = 89.0
+margin_bottom = -121.5
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ExitBtn" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -104.0
+margin_top = 40.0
+margin_right = -40.0
+margin_bottom = 104.0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+
+[connection signal="pressed" from="StartBtn" to="." method="_on_StartBtn_pressed"]
+[connection signal="pressed" from="ExitBtn" to="." method="_on_ExitBtn_pressed"]

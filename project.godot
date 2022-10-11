@@ -11,8 +11,9 @@ config_version=4
 [application]
 
 config/name="Circuitry"
-run/main_scene="res://Scenes/MainGame.tscn"
-boot_splash/bg_color=Color( 0.415686, 0.447059, 0.521569, 1 )
+run/main_scene="res://Scenes/MainMenu.tscn"
+boot_splash/show_image=false
+boot_splash/bg_color=Color( 0.952941, 0.952941, 0.952941, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -26,6 +27,7 @@ window/size/height=1080
 window/size/fullscreen=true
 window/dpi/allow_hidpi=true
 window/handheld/orientation="sensor_landscape"
+mouse_cursor/custom_image="res://Assets/Images/Cursor.png"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
@@ -71,5 +73,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false

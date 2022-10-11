@@ -12,8 +12,9 @@ func _ready():
 	pass
 	
 func add_io(name):
-	if node_index > 15:
+	if node_index > 10:
 		node_index = 0
+		init_pos = init_pos + Vector2(0, 64)
 	var node = io_scene.instance()
 	node.offset += init_pos + (node_index * offset_vector)
 	node.title = name
@@ -22,8 +23,9 @@ func add_io(name):
 	node_index += 1
 	
 func add_gate(name):
-	if node_index > 15:
+	if node_index > 10:
 		node_index = 0
+		init_pos = init_pos + Vector2(0, 64)
 	var node = gate_scene.instance()
 	node.offset += init_pos + (node_index * offset_vector)
 	node.title = name
@@ -79,6 +81,7 @@ func update_connections():
 			i["data"] = 0
 		
 	Globals.connections = connections
+#	print(connections)
 
 func run():
 	update_connections()
@@ -89,3 +92,6 @@ func _on_RUN_pressed():
 
 func _on_Timer_timeout():
 	run()
+
+func _on_MenuBtn_pressed():
+	get_tree().change_scene("res://Scenes/MainMenu.tscn")
