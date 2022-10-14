@@ -9,6 +9,7 @@ var input_values = [0, 0]
 var gate_types = ["AND", "OR", "NAND", "NOR", "XOR", "XNOR"]
 
 func _ready():
+	set_icon(self.title)
 	if title == "NOT":
 		set_slot(1, false, 0, Color("6a7285"), false, 0, Color("6a7285"))
 		set_slot(2, true, 0, Color("6a7285"), true, 0, Color("f74464"))
@@ -58,7 +59,6 @@ func get_input_values():
 		if conn["to"] == self.name:
 			input_values[conn["to_port"]] = conn["data"]
 			
-#			input_values.append(conn["data"])
 
 func execute():
 	get_input_values()
