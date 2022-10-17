@@ -48,6 +48,12 @@ slot/3/left_color = Color( 1, 1, 1, 1 )
 slot/3/right_enabled = false
 slot/3/right_type = 0
 slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 3 )
 
 [node name="Panel" type="Panel" parent="."]
@@ -89,15 +95,48 @@ custom_fonts/font = SubResource( 1 )
 text = "1"
 align = 1
 
-[node name="Control" type="Control" parent="."]
+[node name="YSpeedCont" type="Control" parent="."]
 margin_left = 10.0
 margin_top = 325.0
 margin_right = 438.0
-margin_bottom = 325.0
+margin_bottom = 375.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="Label" type="Label" parent="YSpeedCont"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 78.0
+margin_top = -15.5
+margin_right = 217.0
+margin_bottom = 15.5
+text = "RESOLUTION"
+
+[node name="YSpeedSlider" type="OptionButton" parent="YSpeedCont"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -192.0
+margin_top = -18.0
+margin_right = -101.0
+margin_bottom = 19.0
+focus_mode = 0
+text = "1"
+align = 1
+icon_align = 1
+items = [ "1", null, false, 0, null, "2", null, false, 1, null, "4", null, false, 2, null, "8", null, false, 3, null, "16", null, false, 4, null, "32", null, false, 5, null ]
+selected = 0
+
+[node name="Control" type="Control" parent="."]
+margin_left = 10.0
+margin_top = 388.0
+margin_right = 438.0
+margin_bottom = 388.0
 
 [node name="Palette" type="Sprite" parent="."]
 visible = false
-position = Vector2( -213, 115 )
+position = Vector2( 200, -48 )
 texture = ExtResource( 4 )
 
 [connection signal="close_request" from="." to="." method="_on_OSC_close_request"]
+[connection signal="item_selected" from="YSpeedCont/YSpeedSlider" to="." method="_on_YSpeedSlider_item_selected"]

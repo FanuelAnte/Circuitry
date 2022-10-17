@@ -34,6 +34,7 @@ func _on_Toggle_toggled(button_pressed):
 		toggle.set_text(str(1))
 	else:
 		toggle.set_text(str(0))
+		io_value = 0
 		
 func _on_Freq_value_changed(value):
 	freq_lbl.set_text(str(value))
