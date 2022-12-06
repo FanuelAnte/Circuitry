@@ -48,10 +48,10 @@ margin_top = 16.0
 margin_right = -16.0
 margin_bottom = -16.0
 right_disconnects = true
+scroll_offset = Vector2( -6.10352e-05, -6.10352e-05 )
 snap_distance = 8
-zoom_min = 0.2
+zoom_min = 0.5
 zoom_max = 1.0
-zoom_step = 1.1
 minimap_enabled = false
 minimap_opacity = 0.5
 
@@ -194,20 +194,21 @@ custom_constants/separation = 25
 alignment = 1
 
 [node name="PULSE" type="TextureButton" parent="Left/LeftPanel/Gates/Buttons7"]
-margin_left = 16.0
-margin_right = 91.0
+margin_left = 66.0
+margin_right = 141.0
 margin_bottom = 38.0
 texture_normal = ExtResource( 27 )
 texture_pressed = ExtResource( 26 )
 
 [node name="OSC" type="TextureButton" parent="Left/LeftPanel/Gates/Buttons7"]
+visible = false
 margin_left = 116.0
 margin_right = 191.0
 margin_bottom = 38.0
 texture_normal = ExtResource( 28 )
 texture_pressed = ExtResource( 29 )
 
-[node name="Drawer" type="TextureButton" parent="Left"]
+[node name="LeftDrawer" type="TextureButton" parent="Left"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -219,7 +220,50 @@ margin_bottom = 16.5
 texture_normal = ExtResource( 24 )
 texture_pressed = ExtResource( 25 )
 
-[node name="Tween" type="Tween" parent="Left"]
+[node name="TweenLeft" type="Tween" parent="Left"]
+
+[node name="Right" type="Control" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_top = 48.0
+margin_right = 448.0
+margin_bottom = 1032.0
+
+[node name="RightPanel" type="Panel" parent="Right"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Right/RightPanel"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 432.0
+margin_bottom = 968.0
+
+[node name="Outputs" type="VBoxContainer" parent="Right/RightPanel/ScrollContainer"]
+margin_right = 416.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 416, 0 )
+custom_constants/separation = 20
+
+[node name="OutputsLbl" type="Label" parent="Right/RightPanel/ScrollContainer/Outputs"]
+margin_right = 416.0
+margin_bottom = 31.0
+text = "OUTPUT"
+align = 1
+valign = 1
+
+[node name="RightDrawer" type="TextureButton" parent="Right"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -56.0
+margin_top = -17.5
+margin_right = -24.0
+margin_bottom = 17.5
+texture_normal = ExtResource( 24 )
+texture_pressed = ExtResource( 25 )
+flip_h = true
+
+[node name="TweenRight" type="Tween" parent="Right"]
 
 [node name="Palette" type="Sprite" parent="."]
 visible = false
@@ -253,6 +297,7 @@ texture_pressed = ExtResource( 23 )
 [connection signal="pressed" from="Left/LeftPanel/Gates/Buttons5/OUT" to="." method="_on_OUT_pressed"]
 [connection signal="pressed" from="Left/LeftPanel/Gates/Buttons7/PULSE" to="." method="_on_PULSE_pressed"]
 [connection signal="pressed" from="Left/LeftPanel/Gates/Buttons7/OSC" to="." method="_on_OSC_pressed"]
-[connection signal="pressed" from="Left/Drawer" to="." method="_on_Drawer_pressed"]
+[connection signal="pressed" from="Left/LeftDrawer" to="." method="_on_LeftDrawer_pressed"]
+[connection signal="pressed" from="Right/RightDrawer" to="." method="_on_RightDrawer_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="pressed" from="MenuBtn" to="." method="_on_MenuBtn_pressed"]

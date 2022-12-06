@@ -1,9 +1,14 @@
 extends Control
 
 onready var graph = $GraphEdit
-onready var tween = $Left/Tween
+
+onready var left_tween = $Left/TweenLeft
 onready var left_drawer = $Left
-onready var drawer_btn = $Left/Drawer
+onready var left_drawer_btn = $Left/LeftDrawer
+
+onready var right_tween = $Right/TweenRight
+onready var right_drawer = $Right
+onready var right_drawer_btn = $Right/RightDrawer
 
 var gate_scene = load("res://Scenes/Gate.tscn")
 var io_scene = load("res://Scenes/IO.tscn")
@@ -16,7 +21,12 @@ var oscillator_scene = load("res://Scenes/IO/Oscillator.tscn")
 var offset_vector = Vector2(32, 32)
 var init_pos = Vector2(512, 128)
 var node_index = 0
+
+var input_index = 1
+
 var left_drawer_out = false
+var right_drawer_out = false
+
 
 func _ready():
 	pass
@@ -38,6 +48,9 @@ func add_io(io_type, scene_path):
 	var node = scene_path.instance()
 	node.offset += init_pos + (node_index * offset_vector)
 	graph.add_child(node)
+	if io_type == "INPUT":
+		node.title = io_type + " " + str(input_index)
+	input_index += 1
 	node_index += 1
 	
 func _on_AND_pressed():
@@ -105,16 +118,33 @@ func _on_Timer_timeout():
 func _on_MenuBtn_pressed():
 	get_tree().change_scene("res://Scenes/MainMenu.tscn")
 
-func drawer_tween():
+func left_drawer_tween():
 	if left_drawer_out:
-		tween.interpolate_property(left_drawer, "rect_position", Vector2(48, 96), Vector2(-240, 96), 0.1, Tween.TRANS_SINE, Tween.EASE_IN)
+		left_tween.interpolate_property(left_drawer, "rect_position", Vector2(48, 96), Vector2(-240, 96), 0.1, Tween.TRANS_SINE, Tween.EASE_IN)
 		left_drawer_out = false
-		drawer_btn.flip_h = false
+		left_drawer_btn.flip_h = false
 	else:
-		tween.interpolate_property(left_drawer, "rect_position", Vector2(-240, 96), Vector2(48, 96), 0.1, Tween.TRANS_SINE, Tween.EASE_IN)
+		left_tween.interpolate_property(left_drawer, "rect_position", Vector2(-240, 96), Vector2(48, 96), 0.1, Tween.TRANS_SINE, Tween.EASE_IN)
 		left_drawer_out = true
-		drawer_btn.flip_h = true
-	tween.start()
+		left_drawer_btn.flip_h = true
+	left_tween.start()
 
-func _on_Drawer_pressed():
-	drawer_tween()
+func right_drawer_tween():
+	if right_drawer_out:
+		right_tween.interpolate_property(right_drawer, "rect_position", Vector2(1424, 48), Vector2(1920, 48), 0.1, Tween.TRANS_SINE, Tween.EASE_IN)
+		right_drawer_out = false
+		right_drawer_btn.flip_h = true
+	else:
+		right_tween.interpolate_property(right_drawer, "rect_position", Vector2(1920, 48), Vector2(1424, 48), 0.1, Tween.TRANS_SINE, Tween.EASE_IN)
+		right_drawer_out = true
+		right_drawer_btn.flip_h = false
+	right_tween.start()
+
+
+func _on_LeftDrawer_pressed():
+	left_drawer_tween()
+
+func _on_RightDrawer_pressed():
+	right_drawer_tween()
+
+
