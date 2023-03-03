@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Images/palette.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Themes/Theme.tres" type="Theme" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://Assets/Images/Gates/PULSE.png" type="Texture" id=27]
 [ext_resource path="res://Assets/Images/Gates/OSC.png" type="Texture" id=28]
 [ext_resource path="res://Assets/Images/Gates/OSCp.png" type="Texture" id=29]
+[ext_resource path="res://Scenes/TimelineRow.tscn" type="PackedScene" id=30]
 
 [node name="MainGame" type="Control" groups=["main"]]
 anchor_right = 1.0
@@ -48,7 +49,6 @@ margin_top = 16.0
 margin_right = -16.0
 margin_bottom = -16.0
 right_disconnects = true
-scroll_offset = Vector2( -6.10352e-05, -6.10352e-05 )
 snap_distance = 8
 zoom_min = 0.5
 zoom_max = 1.0
@@ -58,7 +58,7 @@ minimap_opacity = 0.5
 [node name="Left" type="Control" parent="."]
 margin_left = -240.0
 margin_top = 96.0
-margin_bottom = 1032.0
+margin_bottom = 760.0
 
 [node name="LeftPanel" type="Panel" parent="Left"]
 anchor_right = 1.0
@@ -227,7 +227,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_top = 48.0
 margin_right = 448.0
-margin_bottom = 1032.0
+margin_bottom = 760.0
 
 [node name="RightPanel" type="Panel" parent="Right"]
 anchor_right = 1.0
@@ -265,6 +265,47 @@ flip_h = true
 
 [node name="TweenRight" type="Tween" parent="Right"]
 
+[node name="Bottom" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -912.0
+margin_right = 912.0
+margin_bottom = 240.0
+
+[node name="BottomPanel" type="Panel" parent="Bottom"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Bottom/BottomPanel"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1808.0
+margin_bottom = 224.0
+
+[node name="Timeline" type="VBoxContainer" parent="Bottom/BottomPanel/ScrollContainer"]
+margin_right = 1790.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 1790, 208 )
+custom_constants/separation = 20
+
+[node name="Row" parent="Bottom/BottomPanel/ScrollContainer/Timeline" instance=ExtResource( 30 )]
+
+[node name="BottomDrawer" type="TextureButton" parent="Bottom"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 18.0
+margin_top = -56.0
+margin_right = 50.0
+margin_bottom = -21.0
+rect_rotation = 89.9999
+texture_normal = ExtResource( 24 )
+texture_pressed = ExtResource( 25 )
+flip_h = true
+
+[node name="TweenBottom" type="Tween" parent="Bottom"]
+
 [node name="Palette" type="Sprite" parent="."]
 visible = false
 position = Vector2( -544, 288 )
@@ -299,5 +340,6 @@ texture_pressed = ExtResource( 23 )
 [connection signal="pressed" from="Left/LeftPanel/Gates/Buttons7/OSC" to="." method="_on_OSC_pressed"]
 [connection signal="pressed" from="Left/LeftDrawer" to="." method="_on_LeftDrawer_pressed"]
 [connection signal="pressed" from="Right/RightDrawer" to="." method="_on_RightDrawer_pressed"]
+[connection signal="pressed" from="Bottom/BottomDrawer" to="." method="_on_BottomDrawer_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="pressed" from="MenuBtn" to="." method="_on_MenuBtn_pressed"]

@@ -2,6 +2,8 @@ extends Control
 
 onready var graph = $GraphEdit
 
+onready var timeline_row = load("res://Scenes/TimelineRow.tscn")
+
 onready var left_tween = $Left/TweenLeft
 onready var left_drawer = $Left
 onready var left_drawer_btn = $Left/LeftDrawer
@@ -9,6 +11,11 @@ onready var left_drawer_btn = $Left/LeftDrawer
 onready var right_tween = $Right/TweenRight
 onready var right_drawer = $Right
 onready var right_drawer_btn = $Right/RightDrawer
+
+onready var bottom_tween = $Bottom/TweenBottom
+onready var bottom_drawer = $Bottom
+onready var bottom_drawer_btn = $Bottom/BottomDrawer
+onready var timeline_container = $Bottom/BottomPanel/ScrollContainer/Timeline
 
 var gate_scene = load("res://Scenes/Gate.tscn")
 var io_scene = load("res://Scenes/IO.tscn")
@@ -26,9 +33,11 @@ var input_index = 1
 
 var left_drawer_out = false
 var right_drawer_out = false
+var bottom_drawer_out = false
 
 
 func _ready():
+#	graph.get_child(1).hide()
 	pass
 	
 func add_gate(gate_type):
@@ -76,6 +85,7 @@ func _on_NOT_pressed():
 
 func _on_IN_pressed():
 	add_io("INPUT", input_scene)
+	update_timeline()
 
 func _on_OUT_pressed():
 	add_io("OUTPUT", output_scene)
@@ -85,6 +95,21 @@ func _on_PULSE_pressed():
 
 func _on_OSC_pressed():
 	add_io("OSCILLATOR", oscillator_scene)
+
+func update_timeline():
+	var input_count = 0
+	for node in graph.get_children():
+		if node.get_class() == "GraphNode" and "INPUT" in node.title:
+			input_count += 1
+			
+	for row in timeline_container.get_children():
+		row.create_switches(pow(2, input_count))
+		
+#	for node in graph.get_children():
+#		if node.get_class() == "GraphNode" and "INPUT" in node.title:
+#			var row = timeline_row.instance()
+#			timeline_container.add_child(row)
+#			row.name_row(node.title)
 
 func _on_GraphEdit_connection_request(from, from_slot, to, to_slot):
 	for con in graph.get_connection_list():
@@ -113,6 +138,7 @@ func run():
 	get_tree().call_group("nodes", "execute")
 
 func _on_Timer_timeout():
+	update_timeline()
 	run()
 
 func _on_MenuBtn_pressed():
@@ -140,6 +166,16 @@ func right_drawer_tween():
 		right_drawer_btn.flip_h = false
 	right_tween.start()
 
+func bottom_drawer_tween():
+	if bottom_drawer_out:
+		bottom_tween.interpolate_property(bottom_drawer, "rect_position", Vector2(48, 792), Vector2(48, 1080), 0.1, Tween.TRANS_SINE, Tween.EASE_IN)
+		bottom_drawer_out = false
+		bottom_drawer_btn.flip_h = true
+	else:
+		bottom_tween.interpolate_property(bottom_drawer, "rect_position", Vector2(48, 1080), Vector2(48, 792), 0.1, Tween.TRANS_SINE, Tween.EASE_IN)
+		bottom_drawer_out = true
+		bottom_drawer_btn.flip_h = false
+	bottom_tween.start()
 
 func _on_LeftDrawer_pressed():
 	left_drawer_tween()
@@ -147,4 +183,5 @@ func _on_LeftDrawer_pressed():
 func _on_RightDrawer_pressed():
 	right_drawer_tween()
 
-
+func _on_BottomDrawer_pressed():
+	bottom_drawer_tween()
