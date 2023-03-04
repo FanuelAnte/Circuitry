@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Nodes/Input.gd" type="Script" id=1]
+
+[node name="Input" type="GraphNode"]
+margin_right = 128.0
+margin_bottom = 128.0
+title = "INPUT"
+show_close = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+
+[node name="TopSlot" type="Control" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 112.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="Toggle" type="CheckButton" parent="." groups=["node"]]
+margin_left = 16.0
+margin_top = 50.0
+margin_right = 112.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+focus_mode = 0
+align = 1
+icon_align = 1
+
+[node name="BottomSlot" type="Control" parent="."]
+margin_left = 16.0
+margin_top = 101.0
+margin_right = 112.0
+margin_bottom = 126.0
+rect_min_size = Vector2( 0, 25 )
+
+[connection signal="close_request" from="." to="." method="_on_Input_close_request"]
+[connection signal="toggled" from="Toggle" to="." method="_on_Toggle_toggled"]

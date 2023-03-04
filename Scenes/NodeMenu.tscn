@@ -1,0 +1,151 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/NodeMenu.gd" type="Script" id=1]
+
+[node name="NodeMenu" type="Control"]
+margin_right = 256.0
+margin_bottom = 346.0
+script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="GateVBox" type="VBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 14.0
+margin_bottom = -14.0
+custom_constants/separation = 25
+
+[node name="GatesLbl" type="Label" parent="Panel/GateVBox"]
+margin_right = 256.0
+margin_bottom = 14.0
+text = "GATES"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/GateVBox"]
+margin_top = 39.0
+margin_right = 256.0
+margin_bottom = 64.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="ANDBtn" type="Button" parent="Panel/GateVBox/HBoxContainer"]
+margin_left = 18.0
+margin_right = 108.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "AND"
+
+[node name="ORBtn" type="Button" parent="Panel/GateVBox/HBoxContainer"]
+margin_left = 148.0
+margin_right = 238.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "OR"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/GateVBox"]
+margin_top = 89.0
+margin_right = 256.0
+margin_bottom = 114.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="NANDBtn" type="Button" parent="Panel/GateVBox/HBoxContainer2"]
+margin_left = 18.0
+margin_right = 108.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "NAND"
+
+[node name="NORBtn" type="Button" parent="Panel/GateVBox/HBoxContainer2"]
+margin_left = 148.0
+margin_right = 238.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "NOR"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/GateVBox"]
+margin_top = 139.0
+margin_right = 256.0
+margin_bottom = 164.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="XORBtn" type="Button" parent="Panel/GateVBox/HBoxContainer3"]
+margin_left = 18.0
+margin_right = 108.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "XOR"
+
+[node name="XNORBtn" type="Button" parent="Panel/GateVBox/HBoxContainer3"]
+margin_left = 148.0
+margin_right = 238.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "XNOR"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/GateVBox"]
+margin_top = 189.0
+margin_right = 256.0
+margin_bottom = 214.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="NOTBtn" type="Button" parent="Panel/GateVBox/HBoxContainer4"]
+margin_left = 83.0
+margin_right = 173.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "NOT"
+
+[node name="IO" type="Label" parent="Panel/GateVBox"]
+margin_top = 239.0
+margin_right = 256.0
+margin_bottom = 253.0
+text = "IO"
+align = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Panel/GateVBox"]
+margin_top = 278.0
+margin_right = 256.0
+margin_bottom = 303.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="INBtn" type="Button" parent="Panel/GateVBox/HBoxContainer5"]
+margin_left = 18.0
+margin_right = 108.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "INPUT"
+
+[node name="OUTBtn" type="Button" parent="Panel/GateVBox/HBoxContainer5"]
+margin_left = 148.0
+margin_right = 238.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+focus_mode = 0
+text = "OUTPUT"
+
+[connection signal="mouse_entered" from="Panel" to="." method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="Panel" to="." method="_on_Panel_mouse_exited"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer/ANDBtn" to="." method="_on_ANDBtn_pressed"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer/ORBtn" to="." method="_on_ORBtn_pressed"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer2/NANDBtn" to="." method="_on_NANDBtn_pressed"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer2/NORBtn" to="." method="_on_NORBtn_pressed"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer3/XORBtn" to="." method="_on_XORBtn_pressed"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer3/XNORBtn" to="." method="_on_XNORBtn_pressed"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer4/NOTBtn" to="." method="_on_NOTBtn_pressed"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer5/INBtn" to="." method="_on_INBtn_pressed"]
+[connection signal="pressed" from="Panel/GateVBox/HBoxContainer5/OUTBtn" to="." method="_on_OUTBtn_pressed"]

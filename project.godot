@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Circuitry"
-run/main_scene="res://Scenes/MainMenu.tscn"
+run/main_scene="res://Scenes/MainGame.tscn"
 boot_splash/show_image=false
 boot_splash/bg_color=Color( 0.952941, 0.952941, 0.952941, 1 )
 config/icon="res://icon.png"
@@ -27,7 +27,6 @@ window/size/height=1080
 window/size/fullscreen=true
 window/dpi/allow_hidpi=true
 window/handheld/orientation="sensor_landscape"
-mouse_cursor/custom_image="res://Assets/Images/Cursor.png"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
@@ -41,7 +40,7 @@ texture={
 "compress/normal_map": 0,
 "detect_3d": false,
 "flags/anisotropic": false,
-"flags/filter": true,
+"flags/filter": false,
 "flags/mipmaps": false,
 "flags/repeat": 0,
 "flags/srgb": 2,
