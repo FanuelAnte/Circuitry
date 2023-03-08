@@ -79,8 +79,13 @@ func tween_transparency(val, time):
 
 	
 func _on_Panel_mouse_entered():
-	tween_transparency(1, 0.5)
+	tween_transparency(1, 0.2)
 
 
 func _on_Panel_mouse_exited():
-	tween_transparency(0.1, 1)
+	tween_transparency(0.2, 0.2)
+
+
+func _on_ExitBtn_pressed():
+	get_tree().change_scene("res://Scenes/Menus/MainMenu.tscn")
+	

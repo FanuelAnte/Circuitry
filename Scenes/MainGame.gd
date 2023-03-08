@@ -9,7 +9,7 @@ func _ready():
 func _process(delta):
 	if Input.is_mouse_button_pressed(2): 
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-		tween.tween_property(node_menu, "rect_position", get_global_mouse_position(), 0.5)
+		tween.tween_property(node_menu, "rect_position", get_global_mouse_position(), 0.3)
 
 func _on_GraphEdit_connection_request(from, from_slot, to, to_slot):
 	for con in graph_edit.get_connection_list():
@@ -22,14 +22,16 @@ func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 
 func update_connections():
 	var connections = graph_edit.get_connection_list()
-	for i in connections:
-		var node = graph_edit.get_node(i.from)
+	for i in range(connections.size()):
+		var node = graph_edit.get_node(connections[i].from)
 		if is_instance_valid(node):
-			i["data"] = node.io_value
+#			print(node.io_values[connections[i].from_port])
+			connections[i]["data"] = node.io_values[connections[i].from_port]
 		else:
-			i["data"] = 0
+			connections[i]["data"] = 0
 		
 	Globals.connections = connections
+	print(Globals.connections)
 
 func _on_Timer_timeout():
 	update_connections()

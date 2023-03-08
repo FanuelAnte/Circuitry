@@ -2,7 +2,7 @@ extends GraphNode
 
 onready var gate_name = $"%GateName"
 
-var io_value = 0
+var io_values = [0]
 var type = "gate"
 var input_values = [0, 0]
 var gate_types = ["AND", "OR", "NAND", "NOR", "XOR", "XNOR"]
@@ -23,28 +23,29 @@ func _ready():
 		set_slot_enabled_right(2, false)
 		
 func _process(delta):
-	if io_value == 1:
-		set_slot_color_right(1, Color("9cd6d9"))
-	
-	elif io_value == 0:
-		set_slot_color_right(1, Color("4b626e"))
+	for i in range(io_values.size()):
+		if io_values[i] == 1:
+			set_slot_color_right(1, Color(Globals.line_colors["active"]))
+		
+		elif io_values[i] == 0:
+			set_slot_color_right(1, Color(Globals.line_colors["inactive"]))
 		
 	if gate_title == "NOT":
 		if input_values[0] == 1:
-			set_slot_color_left(1, Color("9cd6d9"))
+			set_slot_color_left(1, Color(Globals.line_colors["active"]))
 		elif input_values[0] == 0:
-			set_slot_color_left(1, Color("4b626e"))
+			set_slot_color_left(1, Color(Globals.line_colors["inactive"]))
 			
 	elif gate_title in gate_types:
 		if input_values[0] == 1:
-			set_slot_color_left(0, Color("9cd6d9"))
+			set_slot_color_left(0, Color(Globals.line_colors["active"]))
 		elif input_values[0] == 0:
-			set_slot_color_left(0, Color("4b626e"))
+			set_slot_color_left(0, Color(Globals.line_colors["inactive"]))
 		
 		if input_values[1] == 1:
-			set_slot_color_left(2, Color("9cd6d9"))
+			set_slot_color_left(2, Color(Globals.line_colors["active"]))
 		elif input_values[1] == 0:
-			set_slot_color_left(2, Color("4b626e"))
+			set_slot_color_left(2, Color(Globals.line_colors["inactive"]))
 
 func _on_Gate_close_request():
 	self.queue_free()
@@ -57,47 +58,8 @@ func get_input_values():
 			
 func execute():
 	get_input_values()
-	if gate_title != "NOT":
-		if gate_title == "AND":
-			if input_values[0] and input_values[1]:
-				io_value = 1
-			else:
-				io_value = 0
-				
-		elif gate_title == "OR":
-			if input_values[0] or input_values[1]:
-				io_value = 1
-			else:
-				io_value = 0
-				
-		elif gate_title == "NAND":
-			if input_values[0] and input_values[1]:
-				io_value = 0
-			else:
-				io_value = 1
-
-		elif gate_title == "NOR":
-			if input_values[0] or input_values[1]:
-				io_value = 0
-			else:
-				io_value = 1
-		
-		elif gate_title == "XOR":
-			if input_values[0] == input_values[1]:
-				io_value = 0
-			else:
-				io_value = 1
-			
-		elif gate_title == "XNOR":
-			if input_values[0] == input_values[1]:
-				io_value = 1
-			else:
-				io_value = 0
-		
-	elif gate_title == "NOT":
-		if input_values[0] == 1:
-			io_value = 0
+	if gate_title == "AND":
+		if input_values[0] and input_values[1]:
+			io_values[0] = 1
 		else:
-			io_value = 1
-	else:
-		io_value = 0
+			io_values[0] = 0

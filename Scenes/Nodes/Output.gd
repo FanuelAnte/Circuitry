@@ -10,10 +10,10 @@ func _ready():
 func _process(delta):
 	value_lbl.set_text(str(io_value))
 	if io_value == 1:
-		set_slot_color_left(0, Color("9cd6d9"))
+		set_slot_color_left(0, Color(Globals.line_colors["active"]))
 		
 	elif io_value == 0:
-		set_slot_color_left(0, Color("4b626e"))
+		set_slot_color_left(0, Color(Globals.line_colors["inactive"]))
 		
 func execute():
 	for conn in Globals.connections:
