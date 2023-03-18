@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Nodes/Extras/Toggle.gd" type="Script" id=1]
+
+[node name="Toggle" type="CheckButton" groups=["toggle"]]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 92.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 0, 50 )
+align = 1
+icon_align = 1
+script = ExtResource( 1 )
+
+[connection signal="toggled" from="." to="." method="_on_Toggle_toggled"]

@@ -5,6 +5,8 @@ onready var node_menu = $NodeMenu
 
 func _ready():
 	graph_edit.get_zoom_hbox().visible = false
+	graph_edit.get_child(1).offset = Vector2(1408, 384)
+	graph_edit.get_child(2).offset = Vector2(384, 384)
 	
 func _process(delta):
 	if Input.is_mouse_button_pressed(2): 
@@ -25,13 +27,13 @@ func update_connections():
 	for i in range(connections.size()):
 		var node = graph_edit.get_node(connections[i].from)
 		if is_instance_valid(node):
-#			print(node.io_values[connections[i].from_port])
 			connections[i]["data"] = node.io_values[connections[i].from_port]
 		else:
 			connections[i]["data"] = 0
 		
 	Globals.connections = connections
-	print(Globals.connections)
+	
+#	print(Globals.connections)
 
 func _on_Timer_timeout():
 	update_connections()

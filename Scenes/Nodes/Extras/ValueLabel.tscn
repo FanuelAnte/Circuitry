@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="ValueLbl" type="Label" groups=["valueLbl"]]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 112.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 0, 50 )
+text = "0"
+align = 1
+valign = 1

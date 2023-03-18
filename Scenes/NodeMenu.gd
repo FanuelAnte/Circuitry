@@ -1,8 +1,11 @@
 extends Control
 
 var gate_scene = preload("res://Scenes/Nodes/Gate.tscn")
+
 var input_scene = preload("res://Scenes/Nodes/Input.tscn")
 var output_scene = preload("res://Scenes/Nodes/Output.tscn")
+var and_scene = preload("res://Scenes/Nodes/AND.tscn")
+var not_scene = preload("res://Scenes/Nodes/NOT.tscn")
 
 onready var panel = $Panel
 
@@ -26,44 +29,22 @@ func add_io(io_type, scene_path):
 	graph.add_child(node)
 	node_index += 1
 
-func add_gate(gate_type):
+func add_gate(scene_path):
 	var graph = get_parent().get_child(0)
 	if node_index > 10:
 		node_index = 0
 		init_pos = init_pos + Vector2(0, 64)
-	var node = gate_scene.instance()
-	node.gate_title = gate_type
+#	var node = gate_scene.instance()
+	var node = scene_path.instance()
 	node.offset += init_pos + (node_index * offset_vector)
 	graph.add_child(node)
 	node_index += 1
 
 func _on_ANDBtn_pressed():
-	add_gate("AND")
-
-
-func _on_ORBtn_pressed():
-	add_gate("OR")
-
-
-func _on_NANDBtn_pressed():
-	add_gate("NAND")
-
-
-func _on_NORBtn_pressed():
-	add_gate("NOR")
-
-
-func _on_XORBtn_pressed():
-	add_gate("XOR")
-
-
-func _on_XNORBtn_pressed():
-	add_gate("XNOR")
-
+	add_gate(and_scene)
 
 func _on_NOTBtn_pressed():
-	add_gate("NOT")
-
+	add_gate(not_scene)
 
 func _on_INBtn_pressed():
 	add_io("INPUT", input_scene)
@@ -89,3 +70,4 @@ func _on_Panel_mouse_exited():
 func _on_ExitBtn_pressed():
 	get_tree().change_scene("res://Scenes/Menus/MainMenu.tscn")
 	
+

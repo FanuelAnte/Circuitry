@@ -127,11 +127,32 @@ anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Saves/VBoxContainer/Panel/ScrollContainer"]
 margin_right = 390.0
-margin_bottom = 330.0
+margin_bottom = 480.0
 rect_min_size = Vector2( 390, 330 )
+custom_constants/separation = 0
 
 [node name="SaveFileTemplate" parent="Saves/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource( 6 )]
 margin_right = 390.0
+
+[node name="SaveFileTemplate2" parent="Saves/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 96.0
+margin_right = 390.0
+margin_bottom = 192.0
+
+[node name="SaveFileTemplate3" parent="Saves/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 192.0
+margin_right = 390.0
+margin_bottom = 288.0
+
+[node name="SaveFileTemplate4" parent="Saves/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 288.0
+margin_right = 390.0
+margin_bottom = 384.0
+
+[node name="SaveFileTemplate5" parent="Saves/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 384.0
+margin_right = 390.0
+margin_bottom = 480.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Saves/VBoxContainer"]
 margin_top = 334.0
