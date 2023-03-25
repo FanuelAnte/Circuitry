@@ -24,17 +24,17 @@ func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 
 func update_connections():
 	var connections = graph_edit.get_connection_list()
+
 	for i in range(connections.size()):
 		var node = graph_edit.get_node(connections[i].from)
 		if is_instance_valid(node):
-			connections[i]["data"] = node.io_values[connections[i].from_port]
+			if node.io_values[connections[i].from_port] != null:
+				connections[i]["data"] = node.io_values[connections[i].from_port]
 		else:
 			connections[i]["data"] = 0
 		
 	Globals.connections = connections
 	
-#	print(Globals.connections)
-
 func _on_Timer_timeout():
 	update_connections()
 	get_tree().call_group("node", "execute")

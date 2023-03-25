@@ -23,17 +23,11 @@ zoom_step = 1.02
 minimap_size = Vector2( 400, 200 )
 
 [node name="Output" parent="GraphEdit" instance=ExtResource( 4 )]
-margin_left = 1360.0
-margin_top = 400.0
-margin_right = 1488.0
-margin_bottom = 528.0
+margin_right = 155.0
 mouse_filter = 1
 
 [node name="Input" parent="GraphEdit" instance=ExtResource( 3 )]
-margin_left = 240.0
-margin_top = 400.0
-margin_right = 368.0
-margin_bottom = 528.0
+margin_right = 155.0
 mouse_filter = 1
 
 [node name="NodeMenu" parent="." instance=ExtResource( 1 )]

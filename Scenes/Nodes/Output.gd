@@ -34,3 +34,25 @@ func _on_AddBtn_pressed():
 	for i in range(io_values.size()):
 		set_slot_enabled_left(i, true)
 
+func _on_RemoveBtn_pressed():
+	var index = 0
+	for i in get_children():
+		if i.is_in_group("valueLbl"):
+			index = i.get_index()
+	
+	var graph = get_parent()
+	var graph_connections = graph.get_connection_list()
+	
+	for connection in graph_connections:
+		if connection["to"] == self.name:
+			graph.disconnect_node(connection["from"], connection["from_port"], connection["to"], index)
+			
+	if get_child(index).is_in_group("valueLbl"):
+		var slot_size = get_child(index).rect_size.y
+		get_child(index).queue_free()
+		self.rect_size.y -= slot_size
+		
+		io_values.remove(index)
+		set_slot_enabled_left(index, false)
+		
+

@@ -12,7 +12,7 @@ func _process(delta):
 	for i in range(io_values.size()):
 		if io_values[i] == 1:
 			set_slot_color_right(i, Color(Globals.line_colors["active"]))
-
+		
 		elif io_values[i] == 0:
 			set_slot_color_right(i, Color(Globals.line_colors["inactive"]))
 			
@@ -46,8 +46,17 @@ func _on_RemoveBtn_pressed():
 		if i.is_in_group("toggle"):
 			index = i.get_index()
 	
+	var graph = get_parent()
+	var graph_connections = graph.get_connection_list()
+
+	for connection in graph_connections:
+		if connection["from"] == self.name:
+			graph.disconnect_node(connection["from"], index, connection["to"], connection["to_port"])
+	
 	if get_child(index).is_in_group("toggle"):
+		var slot_size = get_child(index).rect_size.y
 		get_child(index).queue_free()
+		self.rect_size.y -= slot_size
 	
 		io_values.remove(index)
 		set_slot_enabled_right(index, false)
