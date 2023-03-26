@@ -6,7 +6,7 @@ onready var margin = $Margin
 var io_values = []
 
 func _ready():
-	pass
+	_on_AddBtn_pressed()
 
 func _process(delta):
 	for i in range(io_values.size()):
@@ -55,4 +55,3 @@ func _on_RemoveBtn_pressed():
 		io_values.remove(index)
 		set_slot_enabled_left(index, false)
 		
-

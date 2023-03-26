@@ -6,7 +6,8 @@ onready var margin = $Margin
 var io_values = []
 
 func _ready():
-	pass
+	_on_AddBtn_pressed()
+	_on_AddBtn_pressed()
 
 func _process(delta):
 	for i in range(io_values.size()):
@@ -19,6 +20,12 @@ func _process(delta):
 	for child in get_children():
 		if child.is_in_group("toggle"):
 			child.text = str(io_values[child.get_index()])
+	
+	for i in get_children():
+		var index = 0
+		if i.is_in_group("toggle"):
+			index = i.get_index()
+			i.pressed = io_values[index] 
 	
 func set_slot_value(value, slot_index):
 	if value == true:

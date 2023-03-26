@@ -3,8 +3,8 @@
 [ext_resource path="res://Scenes/Nodes/Input.gd" type="Script" id=1]
 
 [node name="Input" type="GraphNode" groups=["node"]]
-margin_right = 128.0
-margin_bottom = 128.0
+margin_right = 172.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 128, 128 )
 title = "INPUT"
 slot/0/left_enabled = false
@@ -35,6 +35,7 @@ alignment = 1
 margin_right = 60.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 60, 30 )
+disabled = true
 text = "+"
 __meta__ = {
 "_editor_description_": ""
@@ -45,6 +46,7 @@ margin_left = 75.0
 margin_right = 135.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 60, 30 )
+disabled = true
 text = "-"
 __meta__ = {
 "_editor_description_": ""

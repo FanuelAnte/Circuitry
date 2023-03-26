@@ -23,15 +23,15 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
-margin_top = 16.0
+margin_top = 13.0
 margin_right = 368.0
 margin_bottom = 34.0
-text = "Introduction"
+text = "INTRODUCTION"
 align = 1
 
 [node name="Label2" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 44.0
 margin_right = 368.0
-margin_bottom = 62.0
-text = "incomplete"
+margin_bottom = 65.0
+text = "INCOMPLETE"
 align = 1

@@ -1,9 +1,14 @@
 extends Control
 
+onready var problem_template_scene = preload("res://Scenes/Menus/ProblemTemplate.tscn")
+onready var problem_list = $ScrollContainer/VBoxContainer
 
 func _ready():
-	pass
-
+	for i in Globals.problem_list:
+		var prob = problem_template_scene.instance()
+		problem_list.add_child(prob)
+		prob.init_problem(i["id"], i["name"], i["description"])
+		
 func _on_ExitBtn_pressed():
 	get_tree().quit()
 

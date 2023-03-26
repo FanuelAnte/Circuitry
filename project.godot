@@ -24,7 +24,10 @@ Globals="*res://Scenes/Globals.gd"
 
 window/size/width=1920
 window/size/height=1080
+window/size/resizable=false
 window/size/fullscreen=true
+window/size/test_width=1280
+window/size/test_height=720
 window/dpi/allow_hidpi=true
 window/handheld/orientation="sensor_landscape"
 mouse_cursor/custom_image="res://Assets/Image Assets/Cursor.png"

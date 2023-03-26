@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=26 format=2]
+[gd_resource type="Theme" load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Fonts/PixelFont225.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Image Assets/ToggleOn.png" type="Texture" id=2]
@@ -10,6 +10,13 @@
 [sub_resource type="DynamicFont" id=8]
 size = 12
 font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=24]
+bg_color = Color( 0.133333, 0.137255, 0.137255, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.133333, 0.137255, 0.137255, 1 )
@@ -138,6 +145,34 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0.133333, 0.137255, 0.137255, 1 )
 
+[sub_resource type="DynamicFont" id=21]
+size = 12
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=22]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 20.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.941176, 0.964706, 0.941176, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.133333, 0.137255, 0.137255, 1 )
+
+[sub_resource type="StyleBoxFlat" id=23]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 20.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.941176, 0.964706, 0.941176, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.133333, 0.137255, 0.137255, 1 )
+
 [sub_resource type="StyleBoxFlat" id=18]
 bg_color = Color( 0.2425, 0.25, 0.25, 1 )
 border_width_left = 3
@@ -164,10 +199,12 @@ corner_radius_bottom_left = 5
 
 [resource]
 Button/colors/font_color = Color( 0.941176, 0.964706, 0.941176, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 Button/colors/font_color_focus = Color( 0.941176, 0.964706, 0.941176, 1 )
 Button/colors/font_color_hover = Color( 0.941176, 0.964706, 0.941176, 1 )
 Button/colors/font_color_pressed = Color( 0.941176, 0.964706, 0.941176, 1 )
 Button/fonts/font = SubResource( 8 )
+Button/styles/disabled = SubResource( 24 )
 Button/styles/focus = SubResource( 9 )
 Button/styles/hover = SubResource( 11 )
 Button/styles/normal = SubResource( 9 )
@@ -215,6 +252,16 @@ HScrollBar/styles/scroll_focus = SubResource( 17 )
 Label/colors/font_color = Color( 0.133333, 0.137255, 0.137255, 1 )
 Label/fonts/font = SubResource( 1 )
 Panel/styles/panel = SubResource( 10 )
+TextEdit/colors/caret_color = Color( 0.235294, 0.352941, 0.368627, 1 )
+TextEdit/colors/current_line_color = Color( 0.342, 0.3576, 0.36, 0.462745 )
+TextEdit/colors/font_color = Color( 0.133333, 0.137255, 0.137255, 1 )
+TextEdit/colors/line_number_color = Color( 0.3534, 0.37468, 0.38, 0.615686 )
+TextEdit/colors/number_color = Color( 0.529412, 0.85098, 0.901961, 1 )
+TextEdit/colors/symbol_color = Color( 0.3828, 0.433327, 0.44, 1 )
+TextEdit/fonts/font = SubResource( 21 )
+TextEdit/styles/focus = SubResource( 22 )
+TextEdit/styles/normal = SubResource( 22 )
+TextEdit/styles/read_only = SubResource( 23 )
 VScrollBar/styles/grabber = SubResource( 14 )
 VScrollBar/styles/grabber_highlight = SubResource( 18 )
 VScrollBar/styles/grabber_pressed = SubResource( 19 )

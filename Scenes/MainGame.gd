@@ -3,10 +3,14 @@ extends Control
 onready var graph_edit = $GraphEdit
 onready var node_menu = $NodeMenu
 
+var selected_nodes = []
+
+
 func _ready():
 	graph_edit.get_zoom_hbox().visible = false
 	graph_edit.get_child(1).offset = Vector2(1408, 384)
 	graph_edit.get_child(2).offset = Vector2(384, 384)
+	node_menu.parse_validation_table()
 	
 func _process(delta):
 	if Input.is_mouse_button_pressed(2): 
@@ -38,3 +42,16 @@ func update_connections():
 func _on_Timer_timeout():
 	update_connections()
 	get_tree().call_group("node", "execute")
+	
+func _on_GraphEdit_node_selected(node):
+	selected_nodes.append(node)
+
+func _on_GraphEdit_node_unselected(node):
+	selected_nodes.erase(node)
+
+func _on_GraphEdit_paste_nodes_request():
+	for node in selected_nodes:
+		if not node.is_in_group("input") and not node.is_in_group("output"):
+			var new_node = node.duplicate()
+			graph_edit.add_child(new_node)
+			new_node.offset += Vector2(32, 32)

@@ -22,17 +22,19 @@ zoom_max = 1.0
 zoom_step = 1.02
 minimap_size = Vector2( 400, 200 )
 
-[node name="Output" parent="GraphEdit" instance=ExtResource( 4 )]
+[node name="Output" parent="GraphEdit" groups=["output"] instance=ExtResource( 4 )]
 margin_right = 155.0
+margin_bottom = 128.0
 mouse_filter = 1
 
-[node name="Input" parent="GraphEdit" instance=ExtResource( 3 )]
+[node name="Input" parent="GraphEdit" groups=["input"] instance=ExtResource( 3 )]
 margin_right = 155.0
+margin_bottom = 128.0
 mouse_filter = 1
 
 [node name="NodeMenu" parent="." instance=ExtResource( 1 )]
-margin_left = -321.0
-margin_right = -65.0
+margin_left = -576.0
+margin_right = -320.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05
@@ -40,4 +42,8 @@ autostart = true
 
 [connection signal="connection_request" from="GraphEdit" to="." method="_on_GraphEdit_connection_request"]
 [connection signal="disconnection_request" from="GraphEdit" to="." method="_on_GraphEdit_disconnection_request"]
+[connection signal="duplicate_nodes_request" from="GraphEdit" to="." method="_on_GraphEdit_duplicate_nodes_request"]
+[connection signal="node_selected" from="GraphEdit" to="." method="_on_GraphEdit_node_selected"]
+[connection signal="node_unselected" from="GraphEdit" to="." method="_on_GraphEdit_node_unselected"]
+[connection signal="paste_nodes_request" from="GraphEdit" to="." method="_on_GraphEdit_paste_nodes_request"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
