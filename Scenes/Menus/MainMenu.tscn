@@ -76,7 +76,7 @@ margin_right = 352.0
 margin_bottom = 90.0
 custom_colors/font_color = Color( 0.133333, 0.137255, 0.137255, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Version 00.01.02"
+text = "Version 00.01.09"
 align = 2
 valign = 1
 

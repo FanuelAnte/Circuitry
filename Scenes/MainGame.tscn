@@ -16,20 +16,25 @@ script = ExtResource( 18 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 right_disconnects = true
+scroll_offset = Vector2( -37, -56 )
 snap_distance = 8
 zoom_min = 1.0
 zoom_max = 1.0
-zoom_step = 1.02
+zoom_step = 1.05
 minimap_size = Vector2( 400, 200 )
 
 [node name="Output" parent="GraphEdit" groups=["output"] instance=ExtResource( 4 )]
-margin_right = 155.0
-margin_bottom = 128.0
+margin_left = 37.0
+margin_top = 56.0
+margin_right = 192.0
+margin_bottom = 184.0
 mouse_filter = 1
 
 [node name="Input" parent="GraphEdit" groups=["input"] instance=ExtResource( 3 )]
-margin_right = 155.0
-margin_bottom = 128.0
+margin_left = 37.0
+margin_top = 56.0
+margin_right = 192.0
+margin_bottom = 184.0
 mouse_filter = 1
 
 [node name="NodeMenu" parent="." instance=ExtResource( 1 )]

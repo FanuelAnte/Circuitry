@@ -2,7 +2,7 @@ extends Node
 
 var connections = []
 
-var line_colors = {"active" : "87d9e6", "inactive" : "3c5a5e"}
+var line_colors = {"active" : "7dd4cc", "inactive" : "3c5a5e"}
 
 var problem_list = [
 	{"id": 0,

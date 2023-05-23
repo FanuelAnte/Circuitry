@@ -8,8 +8,8 @@ var selected_nodes = []
 
 func _ready():
 	graph_edit.get_zoom_hbox().visible = false
-	graph_edit.get_child(1).offset = Vector2(1408, 384)
-	graph_edit.get_child(2).offset = Vector2(384, 384)
+	graph_edit.get_child(1).offset = Vector2(1640, 456)
+	graph_edit.get_child(2).offset = Vector2(128, 456)
 	node_menu.parse_validation_table()
 	
 func _process(delta):

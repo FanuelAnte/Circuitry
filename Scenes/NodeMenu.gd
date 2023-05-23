@@ -12,7 +12,7 @@ onready var graph_edit = get_parent().get_child(0)
 onready var state_lbl = $ValidationTablePanel/Panel/StateLbl
 
 var offset_vector = Vector2(32, 32)
-var init_pos = Vector2(512, 128)
+var init_pos = Vector2(990, 540)
 var node_index = 0
 
 func _ready():
@@ -23,7 +23,7 @@ func _process(delta):
 	
 func add_gate(scene_path):
 	var graph = get_parent().get_child(0)
-	if node_index > 10:
+	if node_index > 5:
 		node_index = 0
 		init_pos = init_pos + Vector2(0, 64)
 	var node = scene_path.instance()
@@ -111,7 +111,8 @@ func _on_VCheckBtn_pressed():
 			input_node = node
 		elif node.is_in_group("output"):
 			output_node = node
-
+	
+	state_lbl.add_color_override("font_color", Color(Globals.line_colors["inactive"]))
 	state_lbl.text = "Checking..."
 	
 	for i in range(parsed_table[0].size()):
@@ -123,8 +124,9 @@ func _on_VCheckBtn_pressed():
 #		yield(get_tree().create_timer(0.5), "timeout")
 	
 	if valid:
-		state_lbl.text = "Correct!"
 		state_lbl.add_color_override("font_color", Color(Globals.line_colors["active"]))
+		state_lbl.text = "Correct!"
 	elif !valid:
+		state_lbl.add_color_override("font_color", Color(Globals.line_colors["inactive"]))		
 		state_lbl.text = "Incorrect."
 

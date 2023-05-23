@@ -5,7 +5,7 @@ var input_values = [0, 0]
 
 func _ready():
 	pass
-
+	
 func _process(delta):
 	for i in range(io_values.size()):
 		if io_values[i] == 1:
