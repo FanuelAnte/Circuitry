@@ -5,10 +5,10 @@ var connections = []
 var line_colors = {"active" : "7dd4cc", "inactive" : "3c5a5e"}
 
 var problem_list = [
-	{"id": 0,
-	"name": "AND",
-	"description": "Basic.",
-	"validation_table": [["11","10","01","00"],["1","0","0","0"]]},
+#	{"id": 0,
+#	"name": "AND",
+#	"description": "Basic.",
+#	"validation_table": [["11","10","01","00"],["1","0","0","0"]]},
 	{"id": 1,
 	"name": "NAND",
 	"description": "Combine.",

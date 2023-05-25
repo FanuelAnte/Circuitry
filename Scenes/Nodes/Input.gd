@@ -1,5 +1,11 @@
 extends GraphNode
 
+const node_type = "INPUT"
+
+var scene_path = "res://Scenes/Nodes/Input.tscn"
+
+var is_being_dragged = true
+var graph_edit
 var toggle_scene = preload("res://Scenes/Nodes/Extras/Toggle.tscn")
 onready var margin = $Margin
 
@@ -20,7 +26,7 @@ func _process(delta):
 	for child in get_children():
 		if child.is_in_group("toggle"):
 			child.text = str(io_values[child.get_index()])
-	
+			
 	for i in get_children():
 		var index = 0
 		if i.is_in_group("toggle"):

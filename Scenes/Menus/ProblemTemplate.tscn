@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/Fonts/PixelFont225.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Fonts/BlockyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Themes/LightTheme.tres" type="Theme" id=2]
 [ext_resource path="res://Scenes/Menus/ProblemTemplate.gd" type="Script" id=3]
 

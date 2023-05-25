@@ -11,26 +11,25 @@ onready var validation_text_edit = $ValidationTablePanel/ValidationTextEdit
 onready var graph_edit = get_parent().get_child(0)
 onready var state_lbl = $ValidationTablePanel/Panel/StateLbl
 
-var offset_vector = Vector2(32, 32)
-var init_pos = Vector2(990, 540)
-var node_index = 0
+var added_node
 
 func _ready():
 	pass
 
 func _process(delta):
 	pass
+
+func get_mouse_on_graph_position():
+	var canvas_transform = graph_edit.get_canvas_transform()
+	var graph_pos = canvas_transform.affine_inverse().xform(get_global_mouse_position())
+	
+	return graph_pos
 	
 func add_gate(scene_path):
-	var graph = get_parent().get_child(0)
-	if node_index > 5:
-		node_index = 0
-		init_pos = init_pos + Vector2(0, 64)
-	var node = scene_path.instance()
-	node.offset += init_pos + (node_index * offset_vector)
-	graph.add_child(node)
-	node_index += 1
-
+	added_node = scene_path.instance()
+	added_node.graph_edit = graph_edit
+	graph_edit.add_child(added_node)
+	
 func parse_validation_table():
 	var table = Globals.current_problem["validation_table"]
 	var inputs = table[0]
@@ -44,10 +43,10 @@ func parse_validation_table():
 		validation_text_edit.insert_text_at_cursor(inputs[i] + ":" + outputs[i] + ',\n')
 	
 func _on_ANDBtn_pressed():
-	add_gate(and_scene)
+	pass
 
 func _on_NOTBtn_pressed():
-	add_gate(not_scene)
+	pass
 
 func tween_transparency(val, time):
 	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
@@ -58,11 +57,9 @@ func tween_position(time):
 	tween.tween_property(self, "rect_position", Vector2(-576, 0), time)
 	
 func _on_Panel_mouse_entered():
-#	tween_transparency(1, 0.2)
 	pass
 
 func _on_Panel_mouse_exited():
-#	tween_transparency(0.2, 0.2)
 	pass
 
 func _on_ExitBtn_pressed():
@@ -94,6 +91,10 @@ func parse_table(inputs, outputs):
 	
 	return [input_array, output_array]
 
+func modulate_menu(alpha):
+	var mod_tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	mod_tween.tween_property(self, "modulate", Color(1, 1, 1, alpha), 0.5)
+
 func _on_VCheckBtn_pressed():
 	var table = Globals.current_problem["validation_table"]
 	var inputs = table[0]
@@ -117,11 +118,10 @@ func _on_VCheckBtn_pressed():
 	
 	for i in range(parsed_table[0].size()):
 		input_node.io_values = parsed_table[0][i]
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.2), "timeout")
 		if output_node.io_values[0] != parsed_table[1][i][0]:
 			valid = false
 			break
-#		yield(get_tree().create_timer(0.5), "timeout")
 	
 	if valid:
 		state_lbl.add_color_override("font_color", Color(Globals.line_colors["active"]))
@@ -129,4 +129,20 @@ func _on_VCheckBtn_pressed():
 	elif !valid:
 		state_lbl.add_color_override("font_color", Color(Globals.line_colors["inactive"]))		
 		state_lbl.text = "Incorrect."
+
+func _on_ANDBtn_button_down():
+	modulate_menu(0.5)
+	add_gate(and_scene)
+
+func _on_ANDBtn_button_up():
+	modulate_menu(1)
+	added_node.is_being_dragged = false
+
+func _on_NOTBtn_button_down():
+	modulate_menu(0.5)
+	add_gate(not_scene)
+
+func _on_NOTBtn_button_up():
+	modulate_menu(1)
+	added_node.is_being_dragged = false
 

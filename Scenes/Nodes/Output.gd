@@ -1,5 +1,11 @@
 extends GraphNode
 
+const node_type = "OUTPUT" 
+
+var scene_path = "res://Scenes/Nodes/Output.tscn"
+
+var is_being_dragged = true
+var graph_edit
 var label_scene = preload("res://Scenes/Nodes/Extras/ValueLabel.tscn")
 onready var margin = $Margin
 
@@ -7,15 +13,19 @@ var io_values = []
 
 func _ready():
 	_on_AddBtn_pressed()
-
+	
+func _physics_process(delta):
+	get_tree().call_group("MainGame", "update_connections")
+	execute()
+	
 func _process(delta):
 	for i in range(io_values.size()):
 		if io_values[i] == 1:
 			set_slot_color_left(i, Color(Globals.line_colors["active"]))
-
+		
 		elif io_values[i] == 0:
 			set_slot_color_left(i, Color(Globals.line_colors["inactive"]))
-	
+		
 func execute():
 	for conn in Globals.connections:
 		if conn["to"] == self.name:

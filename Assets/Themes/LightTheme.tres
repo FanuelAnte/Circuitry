@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=30 format=2]
+[gd_resource type="Theme" load_steps=31 format=2]
 
-[ext_resource path="res://Assets/Fonts/PixelFont225.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Fonts/BlockyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Image Assets/ToggleOn.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Image Assets/ToggleOff.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Image Assets/NodeClose.png" type="Texture" id=4]
@@ -38,6 +38,10 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="DynamicFont" id=25]
+size = 18
+font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=20]
 bg_color = Color( 1, 1, 1, 0 )
@@ -215,6 +219,7 @@ CheckButton/colors/font_color_hover = Color( 0.133333, 0.137255, 0.137255, 1 )
 CheckButton/colors/font_color_hover_pressed = Color( 0.133333, 0.137255, 0.137255, 1 )
 CheckButton/colors/font_color_pressed = Color( 0.133333, 0.137255, 0.137255, 1 )
 CheckButton/constants/hseparation = 2
+CheckButton/fonts/font = SubResource( 25 )
 CheckButton/icons/off = ExtResource( 3 )
 CheckButton/icons/on = ExtResource( 2 )
 CheckButton/styles/disabled = SubResource( 20 )
@@ -252,11 +257,11 @@ HScrollBar/styles/scroll_focus = SubResource( 17 )
 Label/colors/font_color = Color( 0.133333, 0.137255, 0.137255, 1 )
 Label/fonts/font = SubResource( 1 )
 Panel/styles/panel = SubResource( 10 )
-TextEdit/colors/font_color = Color( 0.133333, 0.137255, 0.137255, 0.588235 )
-TextEdit/colors/font_color_readonly = Color( 0.133333, 0.137255, 0.137255, 0.588235 )
-TextEdit/colors/line_number_color = Color( 0.133333, 0.137255, 0.137255, 0.431373 )
-TextEdit/colors/number_color = Color( 0.490196, 0.831373, 0.8, 1 )
-TextEdit/colors/symbol_color = Color( 0.490196, 0.831373, 0.8, 1 )
+TextEdit/colors/font_color = Color( 0.133333, 0.137255, 0.137255, 0.772549 )
+TextEdit/colors/font_color_readonly = Color( 0.109804, 0.101961, 0.101961, 0.745098 )
+TextEdit/colors/line_number_color = Color( 0.1358, 0.14, 0.14, 0.588235 )
+TextEdit/colors/number_color = Color( 0.117647, 0.458824, 0.415686, 1 )
+TextEdit/colors/symbol_color = Color( 0, 0, 0, 1 )
 TextEdit/fonts/font = SubResource( 21 )
 TextEdit/styles/focus = SubResource( 22 )
 TextEdit/styles/normal = SubResource( 22 )
