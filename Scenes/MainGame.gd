@@ -17,14 +17,14 @@ func _ready():
 
 func save(problem_id, nodes, connections):
 	var file = File.new()
-	file.open("user://problem" + str(problem_id) + ".save", File.WRITE)
+	file.open("user://" + str(problem_id) + ".save", File.WRITE)
 	var save_data = {"nodes" : nodes, "connections" : connections}
 	file.store_line(to_json(save_data))
 	file.close()
 
 func load_saved_file(problem_id):
 	var file = File.new()
-	if not file.file_exists("user://problem" + str(problem_id) + ".save"):
+	if not file.file_exists("user://" + str(problem_id) + ".save"):
 		var input_node = input_scene.instance()
 		graph_edit.add_child(input_node)
 		input_node.offset = Vector2(128, 456)
@@ -33,12 +33,12 @@ func load_saved_file(problem_id):
 		graph_edit.add_child(output_node)
 		output_node.offset = Vector2(1640, 456)
 	
-	if file.file_exists("user://problem" + str(problem_id) + ".save"):
+	if file.file_exists("user://" + str(problem_id) + ".save"):
 		for node in graph_edit.get_children():
 			if node.is_in_group("node"):
 				node.queue_free()
 			
-		file.open("user://problem" + str(problem_id) + ".save", File.READ)
+		file.open("user://" + str(problem_id) + ".save", File.READ)
 		var save_data = parse_json(file.get_line())
 		
 		for node in save_data["nodes"]:
@@ -52,12 +52,9 @@ func load_saved_file(problem_id):
 			
 			if added_node.node_type == "INPUT":
 				added_node.io_values = node["io_values"]
-
-			print(node["node_name"])
 		
 		for connection in save_data["connections"]:
 			graph_edit.connect_node(connection["from"].replacen("@", ""), connection["from_port"], connection["to"].replacen("@", ""), connection["to_port"])
-			print(connection)
 		
 		file.close()
 
@@ -93,7 +90,6 @@ func _on_Timer_timeout():
 	var current_nodes = []
 	for node in graph_edit.get_children():
 		if node.is_in_group("node"):
-#			print(node.name)
 			current_nodes.append({
 				"node_name" : node.name.replacen("@", ""),
 				"node_position_x" : node.offset.x,

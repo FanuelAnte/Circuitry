@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Nodes/Output.gd" type="Script" id=1]
 
-[node name="Output" type="GraphNode" groups=["node"]]
+[node name="Output" type="GraphNode" groups=["node", "output"]]
 margin_right = 172.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 128, 128 )

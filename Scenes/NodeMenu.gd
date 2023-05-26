@@ -2,6 +2,9 @@ extends Control
 
 var and_scene = preload("res://Scenes/Nodes/AND.tscn")
 var not_scene = preload("res://Scenes/Nodes/NOT.tscn")
+var generic_scene = preload("res://Scenes/Nodes/Generic.tscn")
+
+var generic_graph = preload("res://Scenes/Nodes/Generic.tscn")
 
 onready var input_table_panel = $InputTablePanel
 onready var validation_table_panel = $ValidationTablePanel
@@ -9,6 +12,7 @@ onready var panel = $Panel
 onready var input_text_edit = $InputTablePanel/InputTextEdit
 onready var validation_text_edit = $ValidationTablePanel/ValidationTextEdit
 onready var graph_edit = get_parent().get_child(0)
+onready var position_node = get_parent().get_child(3)
 onready var state_lbl = $ValidationTablePanel/Panel/StateLbl
 
 var added_node
@@ -126,8 +130,10 @@ func _on_VCheckBtn_pressed():
 	if valid:
 		state_lbl.add_color_override("font_color", Color(Globals.line_colors["active"]))
 		state_lbl.text = "Correct!"
+		Globals.problem_progress[Globals.current_problem["id"]] = "complete"
+		Globals.save()
 	elif !valid:
-		state_lbl.add_color_override("font_color", Color(Globals.line_colors["inactive"]))		
+		state_lbl.add_color_override("font_color", Color(Globals.line_colors["inactive"]))
 		state_lbl.text = "Incorrect."
 
 func _on_ANDBtn_button_down():
@@ -146,3 +152,10 @@ func _on_NOTBtn_button_up():
 	modulate_menu(1)
 	added_node.is_being_dragged = false
 
+func _on_GenericBtn_button_down():
+	modulate_menu(0.5)
+	add_gate(generic_scene)
+
+func _on_GenericBtn_button_up():
+	modulate_menu(1)
+	added_node.is_being_dragged = false

@@ -10,7 +10,7 @@ font_data = ExtResource( 2 )
 
 [node name="NodeMenu" type="Control"]
 margin_right = 256.0
-margin_bottom = 304.0
+margin_bottom = 352.0
 theme = ExtResource( 3 )
 script = ExtResource( 1 )
 
@@ -53,6 +53,21 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 90, 25 )
 focus_mode = 0
 text = "NOT"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/GateVBox"]
+visible = false
+margin_top = 93.0
+margin_right = 256.0
+margin_bottom = 118.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="GenericBtn" type="Button" parent="Panel/GateVBox/HBoxContainer2"]
+margin_left = 83.0
+margin_right = 173.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 90, 25 )
+text = "Custom"
 
 [node name="IOLbl" type="Label" parent="Panel/GateVBox"]
 margin_top = 93.0
@@ -277,6 +292,8 @@ text = "Close"
 [connection signal="button_down" from="Panel/GateVBox/HBoxContainer/NOTBtn" to="." method="_on_NOTBtn_button_down"]
 [connection signal="button_up" from="Panel/GateVBox/HBoxContainer/NOTBtn" to="." method="_on_NOTBtn_button_up"]
 [connection signal="pressed" from="Panel/GateVBox/HBoxContainer/NOTBtn" to="." method="_on_NOTBtn_pressed"]
+[connection signal="button_down" from="Panel/GateVBox/HBoxContainer2/GenericBtn" to="." method="_on_GenericBtn_button_down"]
+[connection signal="button_up" from="Panel/GateVBox/HBoxContainer2/GenericBtn" to="." method="_on_GenericBtn_button_up"]
 [connection signal="pressed" from="Panel/GateVBox/HBoxContainer6/InputBtn" to="." method="_on_InputBtn_pressed"]
 [connection signal="pressed" from="Panel/GateVBox/HBoxContainer6/ValidationBtn" to="." method="_on_ValidationBtn_pressed"]
 [connection signal="pressed" from="Panel/GateVBox/HBoxContainer7/ExitBtn" to="." method="_on_ExitBtn_pressed"]

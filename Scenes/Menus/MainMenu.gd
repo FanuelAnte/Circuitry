@@ -7,7 +7,7 @@ func _ready():
 	for i in Globals.problem_list:
 		var prob = problem_template_scene.instance()
 		problem_list.add_child(prob)
-		prob.init_problem(i["id"], i["name"], i["description"])
+		prob.init_problem(i["id"], i["name"], i["description"], Globals.problem_progress[i["id"]])
 		
 func _on_ExitBtn_pressed():
 	get_tree().quit()

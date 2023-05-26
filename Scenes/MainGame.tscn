@@ -27,6 +27,9 @@ margin_right = -320.0
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[node name="pos" type="Position2D" parent="."]
+position = Vector2( 2304, 0 )
+
 [connection signal="connection_request" from="GraphEdit" to="." method="_on_GraphEdit_connection_request"]
 [connection signal="disconnection_request" from="GraphEdit" to="." method="_on_GraphEdit_disconnection_request"]
 [connection signal="duplicate_nodes_request" from="GraphEdit" to="." method="_on_GraphEdit_duplicate_nodes_request"]
