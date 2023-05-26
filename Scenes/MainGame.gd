@@ -3,16 +3,16 @@ extends Control
 var and_scene = preload("res://Scenes/Nodes/AND.tscn")
 var not_scene = preload("res://Scenes/Nodes/NOT.tscn")
 var input_scene = preload("res://Scenes/Nodes/Input.tscn")
-var output_node = preload("res://Scenes/Nodes/Output.tscn")
+var output_scene = preload("res://Scenes/Nodes/Output.tscn")
 
 onready var graph_edit = $GraphEdit
 onready var node_menu = $NodeMenu
 
 func _ready():
 	graph_edit.get_zoom_hbox().visible = false
-	graph_edit.get_child(1).offset = Vector2(1640, 456)
-	graph_edit.get_child(2).offset = Vector2(128, 456)
 	node_menu.parse_validation_table()
+#	graph_edit.get_child(1).offset = Vector2(1640, 456)
+#	graph_edit.get_child(2).offset = Vector2(128, 456)
 	load_saved_file(Globals.current_problem["id"])
 
 func save(problem_id, nodes, connections):
@@ -24,33 +24,43 @@ func save(problem_id, nodes, connections):
 
 func load_saved_file(problem_id):
 	var file = File.new()
+	if not file.file_exists("user://problem" + str(problem_id) + ".save"):
+		var input_node = input_scene.instance()
+		graph_edit.add_child(input_node)
+		input_node.offset = Vector2(128, 456)
+		
+		var output_node = output_scene.instance()
+		graph_edit.add_child(output_node)
+		output_node.offset = Vector2(1640, 456)
+	
 	if file.file_exists("user://problem" + str(problem_id) + ".save"):
 		for node in graph_edit.get_children():
 			if node.is_in_group("node"):
 				node.queue_free()
-				
+			
 		file.open("user://problem" + str(problem_id) + ".save", File.READ)
 		var save_data = parse_json(file.get_line())
 		
 		for node in save_data["nodes"]:
 			var path = load(node["scene_path"])
 			var added_node = path.instance()
-			added_node.graph_edit = graph_edit
 			graph_edit.add_child(added_node)
+			added_node.name = node["node_name"]
+			added_node.graph_edit = graph_edit
 			added_node.is_being_dragged = false
 			added_node.offset = Vector2(node["node_position_x"], node["node_position_y"])
-			added_node.name = node["node_name"]
 			
 			if added_node.node_type == "INPUT":
 				added_node.io_values = node["io_values"]
-				
+
+			print(node["node_name"])
+		
 		for connection in save_data["connections"]:
-			graph_edit.connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
+			graph_edit.connect_node(connection["from"].replacen("@", ""), connection["from_port"], connection["to"].replacen("@", ""), connection["to_port"])
+			print(connection)
 		
 		file.close()
-	else:
-		return
-		
+
 func _process(delta):
 	if Input.is_mouse_button_pressed(2): 
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
@@ -83,8 +93,9 @@ func _on_Timer_timeout():
 	var current_nodes = []
 	for node in graph_edit.get_children():
 		if node.is_in_group("node"):
+#			print(node.name)
 			current_nodes.append({
-				"node_name" : node.name,
+				"node_name" : node.name.replacen("@", ""),
 				"node_position_x" : node.offset.x,
 				"node_position_y" : node.offset.y,
 				"io_values" : node.io_values,
