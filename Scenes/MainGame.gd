@@ -5,8 +5,12 @@ var not_scene = preload("res://Scenes/Nodes/NOT.tscn")
 var input_scene = preload("res://Scenes/Nodes/Input.tscn")
 var output_scene = preload("res://Scenes/Nodes/Output.tscn")
 
+onready var extra_graphs = $ExtraGraphs
+
 onready var graph_edit = $GraphEdit
 onready var node_menu = $NodeMenu
+
+var nodes_in_graph = []
 
 func _ready():
 	graph_edit.get_zoom_hbox().visible = false
@@ -52,13 +56,19 @@ func load_saved_file(problem_id):
 			
 			if added_node.node_type == "INPUT":
 				added_node.io_values = node["io_values"]
-		
+				
+			if added_node.is_component:
+				added_node.node_type = node["node_type"]
+				added_node.gen_graph = node["generic_graph"]
+				added_node.create_graph(added_node.node_type)
+				
 		for connection in save_data["connections"]:
 			graph_edit.connect_node(connection["from"].replacen("@", ""), connection["from_port"], connection["to"].replacen("@", ""), connection["to_port"])
 		
 		file.close()
 
 func _process(delta):
+	update_connections()
 	if Input.is_mouse_button_pressed(2): 
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(node_menu, "rect_position", get_global_mouse_position(), 0.3)
@@ -86,16 +96,20 @@ func update_connections():
 	Globals.connections = connections
 	
 func _on_Timer_timeout():
-	var connections = graph_edit.get_connection_list()
+	
 	var current_nodes = []
+	var connections = graph_edit.get_connection_list()
 	for node in graph_edit.get_children():
 		if node.is_in_group("node"):
 			current_nodes.append({
+				"node_type": node.node_type,
+				"is_comp": node.is_component,
+				"generic_graph" : node.gen_graph,
 				"node_name" : node.name.replacen("@", ""),
 				"node_position_x" : node.offset.x,
 				"node_position_y" : node.offset.y,
 				"io_values" : node.io_values,
 				"scene_path" : node.scene_path,
 			})
-	
+	nodes_in_graph = current_nodes
 	save(Globals.current_problem["id"], current_nodes, connections)

@@ -1,8 +1,11 @@
 extends GraphNode
 
 const node_type = "INPUT"
+var is_component = false
 
 var scene_path = "res://Scenes/Nodes/Input.tscn"
+
+var gen_graph
 
 var is_being_dragged = true
 var graph_edit

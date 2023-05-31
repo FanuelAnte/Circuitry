@@ -1,8 +1,11 @@
 extends GraphNode
 
-const node_type = "OUTPUT" 
+const node_type = "OUTPUT"
+var is_component = false
 
 var scene_path = "res://Scenes/Nodes/Output.tscn"
+
+var gen_graph
 
 var is_being_dragged = true
 var graph_edit
@@ -27,10 +30,10 @@ func _process(delta):
 			set_slot_color_left(i, Color(Globals.line_colors["inactive"]))
 		
 func execute():
-	for conn in Globals.connections:
+	for conn in get_parent().connections_list:
 		if conn["to"] == self.name:
 			io_values[conn["to_port"]] = conn["data"]
-			
+
 	for child in get_children():
 		if child.is_in_group("valueLbl"):
 			child.text = str(io_values[child.get_index()])

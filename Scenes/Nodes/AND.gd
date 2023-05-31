@@ -1,11 +1,13 @@
 extends GraphNode
 
 const node_type = "AND" 
-
+var is_component = false
 var scene_path = "res://Scenes/Nodes/AND.tscn"
 
 var graph_edit
 var is_being_dragged = true
+
+var gen_graph
 
 var io_values = [0]
 var input_values = [0, 0]
@@ -38,7 +40,7 @@ func _process(delta):
 
 func get_input_values():
 	input_values = [0, 0]
-	for conn in Globals.connections:
+	for conn in get_parent().connections_list:
 		if conn["to"] == self.name:
 			input_values[conn["to_port"]] = conn["data"]
 			

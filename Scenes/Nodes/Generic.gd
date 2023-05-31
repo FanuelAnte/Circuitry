@@ -1,11 +1,15 @@
 extends GraphNode
 
-var node_type = "GENERIC" 
+var is_component = true
 
+var generic_graph = preload("res://Scenes/GenericGraph.tscn")
+var node_type = "-" 
 var scene_path = "res://Scenes/Nodes/Generic.tscn"
 
-var graph_edit
+var graph_edit = get_parent()
 var is_being_dragged = true
+
+var gen_graph
 
 var io_values = [0]
 var input_values = [0, 0]
@@ -13,7 +17,18 @@ var input_values = [0, 0]
 func _ready():
 	pass
 	
+func create_graph(text):
+	gen_graph = generic_graph.instance()
+	graph_edit.get_parent().get_child(2).add_child(gen_graph)
+	gen_graph.rect_position = Vector2(2048, 0)
+	gen_graph.name = gen_graph.name.replacen("@", "")
+	gen_graph.component_name = text
+	gen_graph.load_saved_component(text)
+
 func _process(delta):
+	self.title = node_type
+	$Name.text = node_type
+	
 	execute()
 	if is_being_dragged:
 		self.offset = get_mouse_on_graph_position()
@@ -37,13 +52,15 @@ func _process(delta):
 		
 func get_input_values():
 	input_values = [0, 0]
-	for conn in Globals.connections:
+	for conn in get_parent().connections_list:
 		if conn["to"] == self.name:
 			input_values[conn["to_port"]] = conn["data"]
 			
 func execute():
-	pass
-			
+	get_input_values()
+	if gen_graph != null and is_instance_valid(gen_graph):
+		io_values = gen_graph.evaluate(input_values)
+	
 func get_mouse_on_graph_position():
 	var canvas_transform = graph_edit.get_canvas_transform()
 	var graph_pos = canvas_transform.affine_inverse().xform(get_global_mouse_position())

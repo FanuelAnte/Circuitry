@@ -3,8 +3,8 @@
 [ext_resource path="res://Scenes/Nodes/Generic.gd" type="Script" id=1]
 
 [node name="Generic" type="GraphNode" groups=["node"]]
-margin_right = 32.0
-margin_bottom = 30.0
+margin_right = 128.0
+margin_bottom = 128.0
 show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -29,7 +29,7 @@ script = ExtResource( 1 )
 [node name="Control" type="Control" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 96.0
+margin_right = 112.0
 margin_bottom = 49.0
 rect_min_size = Vector2( 0, 25 )
 mouse_filter = 2
@@ -37,7 +37,7 @@ mouse_filter = 2
 [node name="Name" type="Label" parent="."]
 margin_left = 16.0
 margin_top = 50.0
-margin_right = 96.0
+margin_right = 112.0
 margin_bottom = 82.0
 rect_min_size = Vector2( 80, 32 )
 text = "-"
@@ -47,7 +47,7 @@ valign = 1
 [node name="Control2" type="Control" parent="."]
 margin_left = 16.0
 margin_top = 83.0
-margin_right = 96.0
+margin_right = 112.0
 margin_bottom = 108.0
 rect_min_size = Vector2( 0, 25 )
 mouse_filter = 2

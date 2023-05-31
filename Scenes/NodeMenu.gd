@@ -4,8 +4,6 @@ var and_scene = preload("res://Scenes/Nodes/AND.tscn")
 var not_scene = preload("res://Scenes/Nodes/NOT.tscn")
 var generic_scene = preload("res://Scenes/Nodes/Generic.tscn")
 
-var generic_graph = preload("res://Scenes/Nodes/Generic.tscn")
-
 onready var input_table_panel = $InputTablePanel
 onready var validation_table_panel = $ValidationTablePanel
 onready var panel = $Panel
@@ -14,6 +12,8 @@ onready var validation_text_edit = $ValidationTablePanel/ValidationTextEdit
 onready var graph_edit = get_parent().get_child(0)
 onready var position_node = get_parent().get_child(3)
 onready var state_lbl = $ValidationTablePanel/Panel/StateLbl
+onready var comps_cont = $CompsPanel/CompsCont
+onready var comps_panel = $CompsPanel
 
 var added_node
 
@@ -33,7 +33,7 @@ func add_gate(scene_path):
 	added_node = scene_path.instance()
 	added_node.graph_edit = graph_edit
 	graph_edit.add_child(added_node)
-	
+		
 func parse_validation_table():
 	var table = Globals.current_problem["validation_table"]
 	var inputs = table[0]
@@ -122,7 +122,7 @@ func _on_VCheckBtn_pressed():
 	
 	for i in range(parsed_table[0].size()):
 		input_node.io_values = parsed_table[0][i]
-		yield(get_tree().create_timer(0.2), "timeout")
+		yield(get_tree().create_timer(0.5), "timeout")
 		if output_node.io_values[0] != parsed_table[1][i][0]:
 			valid = false
 			break
@@ -153,9 +153,65 @@ func _on_NOTBtn_button_up():
 	added_node.is_being_dragged = false
 
 func _on_GenericBtn_button_down():
+	for i in comps_cont.get_children():
+		i.queue_free()
+		
 	modulate_menu(0.5)
+	
+	var files = get_component_files("user://", ".comp")
+	comps_panel.show()
+	
+	for file in files:
+		create_button(file)
+	
 	add_gate(generic_scene)
+
+func get_component_files(path, ext):
+	var dir = Directory.new()
+	var files = []
+	
+	var final_file_names = []
+	
+	if dir.open(path) == OK:
+		dir.list_dir_begin()
+		while true:
+			var file = dir.get_next()
+			if file == "":
+				break
+			if dir.current_is_dir():
+				continue
+			if file.ends_with(ext):
+				files.append(file)
+		dir.list_dir_end()
+	for file in files:
+		final_file_names.append(file.split(".")[0])
+		
+	return final_file_names
+	
+func create_button(text):
+	var button = Button.new()
+	button.text = text
+	button.rect_min_size = Vector2(90, 25)
+	comps_cont.add_child(button)
+
+	button.connect("pressed", self, "on_button_pressed", [text])
+
+func on_button_pressed(text):
+	added_node.node_type = text
+	comps_panel.hide()
+	added_node.create_graph(text)
 
 func _on_GenericBtn_button_up():
 	modulate_menu(1)
 	added_node.is_being_dragged = false
+	
+func save_component(comp_name, nodes, connections):
+	var file = File.new()
+	file.open("user://" + str(comp_name) + ".comp", File.WRITE)
+	var save_data = {"nodes" : nodes, "connections" : connections}
+	file.store_line(to_json(save_data))
+	file.close()
+
+func _on_SaveCompBtn_pressed():
+	save_component(Globals.current_problem["name"], get_parent().nodes_in_graph, get_parent().get_child(0).get_connection_list())
+
