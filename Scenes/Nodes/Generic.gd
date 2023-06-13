@@ -10,6 +10,7 @@ var graph_edit = get_parent()
 var is_being_dragged = true
 
 var gen_graph
+var graph_parent_index = 0
 
 var io_values = [0]
 var input_values = [0, 0]
@@ -19,7 +20,7 @@ func _ready():
 	
 func create_graph(text):
 	gen_graph = generic_graph.instance()
-	graph_edit.get_parent().get_child(2).add_child(gen_graph)
+	graph_edit.get_parent().get_child(graph_parent_index).add_child(gen_graph)
 	gen_graph.rect_position = Vector2(2048, 0)
 	gen_graph.name = gen_graph.name.replacen("@", "")
 	gen_graph.component_name = text

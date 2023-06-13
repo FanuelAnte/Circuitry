@@ -7,7 +7,6 @@ var connections_list = []
 func _ready():
 	pass
 	
-
 func _process(delta):
 	update_connections()
 
@@ -30,10 +29,11 @@ func load_saved_component(comp_id):
 			if added_node.node_type == "INPUT":
 				added_node.io_values = node["io_values"]
 			
-#			if added_node.is_component:
-#				added_node.node_type = node["node_type"]
-#				added_node.gen_graph = node["generic_graph"]
-#				added_node.create_graph(added_node.node_type)
+			if added_node.is_component:
+				added_node.node_type = node["node_type"]
+				added_node.gen_graph = node["generic_graph"]
+				added_node.graph_parent_index = 0
+				added_node.create_graph(added_node.node_type)
 			
 		for connection in save_data["connections"]:
 			self.connect_node(connection["from"].replacen("@", ""), connection["from_port"], connection["to"].replacen("@", ""), connection["to_port"])

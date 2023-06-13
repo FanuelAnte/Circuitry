@@ -60,6 +60,7 @@ func load_saved_file(problem_id):
 			if added_node.is_component:
 				added_node.node_type = node["node_type"]
 				added_node.gen_graph = node["generic_graph"]
+				added_node.graph_parent_index = 2
 				added_node.create_graph(added_node.node_type)
 				
 		for connection in save_data["connections"]:
